@@ -4,16 +4,28 @@ def input_students
   # create an empty array 
   students = []
   # get the first name
-  name = gets.chomp
+  name = gets.chomp.to_str
+  # get the cohort date
+  puts "Enter cohort month"
+  cohort = gets.chomp
+    if name.empty?
+      name = :Annoymous
+    end
+    
+    if cohort.empty? 
+      cohort = :november
+    end 
+    
   # while the name is not empty, repeat this code
   while !name.empty? do 
+  
   # ask for more information about the student
     puts "Whats #{name}'s favourite hobbie?"
     hobbies = gets.chomp
     puts "Country of birth?"
-    birthplace = gets.chomp
+    birthplace = gets.chomp.to_str
   # add the student hash to the array
-    students << {name: name, cohort: :november, hobbie: hobbies,
+    students << {name: name, cohort: cohort, hobbie: hobbies,
     birthplace: birthplace}
     puts "Now we have #{students.count} students"
   # get another name from the user
