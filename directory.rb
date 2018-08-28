@@ -72,13 +72,19 @@ def print(students)
   end
 end  
 
+students = input_students
+
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(50)
+  if names.count === 1
+    puts "Overall, we have #{names.count} great student".center(50)
+  else
+    puts "Overall, we have #{names.count} great students".center(50)
+  end
 end 
 
 #nothing happens until we call the methods
- students = input_students
-# print_header
+
+print_header
 # print(students)
-print_cohort(sort_into_cohort(students))
-# print_footer(students)
+print_cohort(sort_into_cohort(students))   
+print_footer(students)
