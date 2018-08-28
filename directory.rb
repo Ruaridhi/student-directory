@@ -1,24 +1,22 @@
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  
   # create an empty array 
   students = []
   # get the first name
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
   name = gets.chomp.to_str
-  # get the cohort date
-  puts "Enter cohort month"
-  cohort = gets.chomp
-    if name.empty?
-      name = :Annoymous
-    end
-    
-    if cohort.empty? 
-      cohort = :november
-    end 
     
   # while the name is not empty, repeat this code
   while !name.empty? do 
-  
+    # get the cohort date
+    puts "Enter cohort month"
+    cohort = gets.chomp
+      
+    if cohort.empty? 
+      cohort = :november
+    end
+    
   # ask for more information about the student
     puts "Whats #{name}'s favourite hobbie?"
     hobbies = gets.chomp
@@ -29,11 +27,34 @@ def input_students
     birthplace: birthplace}
     puts "Now we have #{students.count} students"
   # get another name from the user
+    puts "Please enter the name of the students"
     name = gets.chomp
   end
   # return the array of students
   students
 end
+
+def sort_into_cohort(students)
+  sorted_cohort = {}
+  students.each do |student|
+    month = student[:cohort]
+    if sorted_cohort[month.to_sym] == nil  
+      sorted_cohort[month.to_sym] = [student[:name]]
+    else 
+      name_array = sorted_cohort[month.to_sym]
+      name_array.push(student[:name])
+      sorted_cohort[month.to_sym] = name_array 
+    end 
+  end 
+  sorted_cohort
+end 
+
+def print_cohort(students_by_cohort)
+  students_by_cohort.each do |month, names|
+    puts month.to_s + ":"
+    puts names
+  end 
+end 
   
 def print_header
   puts "The students of Villians Academy".center(50)
@@ -56,7 +77,8 @@ def print_footer(names)
 end 
 
 #nothing happens until we call the methods
-students = input_students
-print_header
-print(students)
-print_footer(students)
+ students = input_students
+# print_header
+# print(students)
+print_cohort(sort_into_cohort(students))
+# print_footer(students)
