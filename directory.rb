@@ -88,7 +88,11 @@ end
 
 #nothing happens until we call the methods
 
+if !sort_into_cohort(students).empty?
 print_header
 # print(students)
 print_cohort(sort_into_cohort(students))   
 print_footer(students)
+else
+  
+end
