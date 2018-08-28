@@ -5,13 +5,14 @@ def input_students
   # get the first name
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = gets.chomp.to_str
-    
+  name = gets.to_str
+  name.delete!("\n")  
   # while the name is not empty, repeat this code
   while !name.empty? do 
     # get the cohort date
     puts "Enter cohort month"
-    cohort = gets.chomp
+    cohort = gets
+    cohort.delete!("\n")
       
     if cohort.empty? 
       cohort = :november
@@ -19,16 +20,19 @@ def input_students
     
   # ask for more information about the student
     puts "Whats #{name}'s favourite hobbie?"
-    hobbies = gets.chomp
+    hobbies = gets
+    hobbies.delete!("\n")
     puts "Country of birth?"
-    birthplace = gets.chomp.to_str
+    birthplace = gets.to_str
+    birthplace.delete!("\n")
   # add the student hash to the array
     students << {name: name, cohort: cohort, hobbie: hobbies,
     birthplace: birthplace}
     puts "Now we have #{students.count} students"
   # get another name from the user
     puts "Please enter the name of the students"
-    name = gets.chomp
+    name = gets
+    name.delete!("\n")
   end
   # return the array of students
   students
