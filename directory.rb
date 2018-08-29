@@ -6,7 +6,7 @@ def input_students
   # get the first name
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = gets
+  name = STDIN.gets
   name.delete!("\n")  
   # while the name is not empty, repeat this code
   while !name.empty? do 
@@ -16,7 +16,7 @@ def input_students
     puts "Now we have #{@students.count} students"
   # get another name from the user
     puts "Please enter the name of the students"
-    name = gets
+    name = STDIN.gets
     name.delete!("\n")
   end
   # return the array of students
@@ -29,7 +29,7 @@ def interactive_menu
   loop do
     # 2. read the input and save it into a variable
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
     # 3. do what the user has asked
   end
 end
@@ -63,14 +63,27 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line| 
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
+
+def try_load_students
+  filename = ARGV.first #first argument from the commmand line
+  return if filename.nil? #get out of the method if it isn't given
+  if File.exits?(filename) # if it exist
+    load_students(filename)
+      puts "loaded #{@students.count} from #{filename}"
+  else # if doesn't exist
+    puts "sorry, #{filename} doesn't exist."
+    exit # quit the program
+  end
+end
+
 
 def process(selection)
   case selection
@@ -101,14 +114,14 @@ def print_student_list
   end
 end  
 
-
-
 def print_footer
   puts "Overall, we have #{@students.count} great students".center(50)
 end 
 
+try_load_students
 #nothing happens until we call interactive_menu
 interactive_menu
+
 
 
  
