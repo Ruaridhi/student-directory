@@ -17,7 +17,7 @@ def input_students
     if cohort.empty? 
       cohort = :november
     end
-    
+
   # ask for more information about the student
     puts "Whats #{name}'s favourite hobbie?"
     hobbies = gets
@@ -37,6 +37,8 @@ def input_students
   # return the array of students
   students
 end
+
+
 
 def sort_into_cohort(students)
   sorted_cohort = {}
@@ -59,6 +61,37 @@ def print_cohort(students_by_cohort)
     puts names
   end 
 end 
+
+def interactive_menu
+students = []
+  loop do
+      # 1. print the menu and ask the user what to do
+      puts "1. Input the students"
+      puts "2. Show the students"
+      puts "9. Exit"
+    # 2. read the input and save it into a variable
+      selection = gets.chomp.to_i
+    # 3. do what the user has asked
+      case selection
+        when 1 
+          #input students
+          students = input_students
+        when 2
+          #Show students_by_cohort
+          print_header
+          # print(students)
+          print_cohort(sort_into_cohort(students))   
+          print_footer(students)
+        when 9
+          exit #will exit the program
+        else
+          puts "I don't know what you meant, try again"
+      end
+      
+  end
+end
+
+interactive_menu
   
 def print_header
   puts "The students of Villians Academy".center(50)
@@ -76,7 +109,7 @@ def print(students)
   end
 end  
 
-students = input_students
+
 
 def print_footer(names)
   if names.count === 1
@@ -89,10 +122,7 @@ end
 #nothing happens until we call the methods
 
 if !sort_into_cohort(students).empty?
-print_header
-# print(students)
-print_cohort(sort_into_cohort(students))   
-print_footer(students)
+
 else
   
 end
